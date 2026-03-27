@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                entry.target.classList.add('show');
             }
         });
     }, observerOptions);
@@ -49,6 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('section').forEach(section => {
         section.classList.add('fade-in'); // Add base class via JS or HTML
         observer.observe(section);
+    });
+
+    // Observe specific elements for scroll animations
+    document.querySelectorAll('.service-card, .portfolio-item').forEach(card => {
+        observer.observe(card);
     });
 
     // Theme Toggle Logic
@@ -79,4 +85,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
 });
