@@ -399,7 +399,6 @@ section {
     gap: 40px;
     flex-wrap: nowrap;
     width: max-content;
-    animation: scrollLeftToRight 10s linear infinite;
     padding: 10px 0;
     min-height: 80px;
 }
@@ -425,12 +424,35 @@ section {
     opacity: 0.7;
     cursor: grab;
     user-select: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.skill-item::after {
+    content: attr(data-name);
+    position: absolute;
+    bottom: -30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: translateY(-10px);
+    white-space: nowrap;
+    pointer-events: none;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .skill-item:hover {
     transform: scale(1.2) rotate(5deg);
     filter: grayscale(0%);
     opacity: 1;
+}
+
+.skill-item:hover::after {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* GitHub Icon Specifics */
