@@ -86,4 +86,63 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Testimonials Carousel Logic
+    const track = document.querySelector('.carousel-track');
+    const cards = Array.from(document.querySelectorAll('.testimonial-card'));
+    const nextBtn = document.querySelector('.next-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+    const indicators = Array.from(document.querySelectorAll('.indicator'));
+
+    if (track && cards.length > 0) {
+        let currentIndex = 0;
+
+        const updateCarousel = (index) => {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            cards.forEach((card, i) => {
+                if (i === index) {
+                    card.classList.add('active-card');
+                } else {
+                    card.classList.remove('active-card');
+                }
+            });
+            indicators.forEach((ind, i) => {
+                if (i === index) {
+                    ind.classList.add('active');
+                } else {
+                    ind.classList.remove('active');
+                }
+            });
+        };
+
+        // Initialize first card
+        updateCarousel(currentIndex);
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % cards.length;
+                updateCarousel(currentIndex);
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+                updateCarousel(currentIndex);
+            });
+        }
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel(currentIndex);
+            });
+        });
+
+        // Auto-slide feature
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % cards.length;
+            updateCarousel(currentIndex);
+        }, 5000);
+    }
+
 });
